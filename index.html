@@ -1,21 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 <head>
-  <title>Merux Helm Charts</title>
-  <style>
-    body { font-family: sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; line-height: 1.6; }
-    code { background: #f4f4f4; padding: 4px; border-radius: 4px; }
-    pre { background: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Merux Helm Charts</title>
+    <meta name="description" content="A self-hosted Helm chart repository for Merux deployments.">
+    
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Merux Helm Charts</h1>
-  <p>Welcome to my self-hosted Helm chart repository. To use these charts, run the following commands in your terminal:</p>
-  
-  <pre><code>helm repo add merux https://charts.merux.dev
-helm repo update
-helm search repo merux</code></pre>
+    <a id="skip-to-content" href="#content">Skip to the content.</a>
 
-  <p>You can view the raw repository data here: <a href="index.yaml">index.yaml</a>.</p>
+    <header class="page-header" role="banner">
+        <h1 class="project-name">Merux Helm Charts</h1>
+        <h2 class="project-tagline">A self-hosted repository for custom Kubernetes deployments.</h2>
+        <a href="https://github.com/merux-dev/merux-helm-chart" class="btn">View on GitHub</a>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+        <h2 id="merux-helm-charts">Merux Helm Charts</h2>
+        
+        <p><a href="https://helm.sh">Helm</a> repository for charts created and maintained by Merux, ready to be installed on <a href="https://kubernetes.io">Kubernetes</a> or Rancher.</p>
+
+        <div class="disclaimer">
+            <p>⚠️ <strong>Disclaimer:</strong> This project is maintained by community volunteers and designed for expert use. For quick and easy deployment, please follow the specific instructions included in the documentation of each individual chart.</p>
+        </div>
+
+        <h3 id="add-helm-repository">Add Helm repository</h3>
+        <p>To install the repository, just run:</p>
+        <div class="code-block">
+            <pre><code>helm repo add merux https://charts.merux.dev
+helm repo update</code></pre>
+        </div>
+
+        <h3 id="helm-charts">Available Helm Charts</h3>
+        <ul>
+            <li>
+                <p><strong>nextcloud-spreed</strong></p>
+                <p>To install the Nextcloud Spreed Signaling chart:</p>
+                <div class="code-block">
+                    <pre><code>helm install my-release merux/nextcloud-spreed</code></pre>
+                </div>
+            </li>
+        </ul>
+
+        <footer class="site-footer">
+            <span class="site-footer-owner"><a href="https://github.com/merux-dev/merux-helm-chart">merux-helm-chart</a> is maintained by <a href="https://github.com/merux-dev">merux-dev</a>.</span>
+            <span class="site-footer-credits">Hosted securely on <a href="https://pages.github.com">GitHub Pages</a>.</span>
+        </footer>
+    </main>
 </body>
 </html>

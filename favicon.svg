@@ -1,0 +1,10 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="512" height="512">
+	<defs>
+		<image  width="400" height="400" id="image" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAGQAQMAAAC6caSPAAAAAXNSR0IB2cksfwAAAANQTFRFAAAAp3o92gAAAFZJREFUeJztyzENAAAMA6DVv+lp6NvAT64WRVEURVEURVEURVEURVEURVEURVEURVEURVEURVEURVEURVEURVEURVEURVEURVEURVEURVEURVEURVkvD7yqAZFFhyovAAAAAElFTkSuQmCC"/>
+	</defs>
+	<style>
+		.s0 { fill: #39ff72 } 
+	</style>
+	<use id="background" href="#image" x="0" y="0"/>
+	<path id="colorfill" class="s0" d="m104 330v18h76v-18zm-19-41l-47-47 11-11 58.5 58.5-58 58-11.01-11.01zm-28-204l143 143 143-143v231l-31-31v-127l-112 112-112-112v76l18 18v-50l94 94 95-95v93l64.5 64.5v-315.5l-159.25 159.25-160.25-160.25v149l16.5 16.51z"/>
+</svg>
