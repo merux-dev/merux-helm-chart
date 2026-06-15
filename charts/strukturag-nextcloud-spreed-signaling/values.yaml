@@ -1,0 +1,40 @@
+nats:
+  image: "nats:alpine"
+  port: 4222
+
+janus:
+  image: "canyan/janus-gateway:latest"
+  ports:
+    ws: 8188
+    http: 8088
+  # WebRTC requires a wide range of UDP ports. In production, you might 
+  # need hostNetwork: true or specific NodePort configurations for Janus.
+  hostNetwork: false 
+
+signaling:
+  image: "strukturag/nextcloud-spreed-signaling:master"
+  port: 8080
+  config:
+    nextcloudUrl: "https://your-nextcloud.com"
+    nextcloudSecret: "your-shared-secret" # Must match Nextcloud Talk admin settings
+    hashKey: "1234567890123456"  # Must be exactly 16, 24, or 32 bytes
+    blockKey: "1234567890123456" # Must be exactly 16, 24, or 32 bytes
+    coturnServer: "turn.example.com"
+    coturnSecret: "your-coturn-secret"
+
+ingress:
+  enabled: true
+  className: "nginx" # Change this if you use traefik, haproxy, etc.
+  annotations: {}
+    # Example for cert-manager:
+    # cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    # nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+  hosts:
+    - host: signaling.yourdomain.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+  #  - secretName: signaling-tls
+  #    hosts:
+  #      - signaling.yourdomain.com

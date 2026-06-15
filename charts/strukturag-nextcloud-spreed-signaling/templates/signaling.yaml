@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-signaling
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: signaling
+  template:
+    metadata:
+      labels:
+        app: signaling
+    spec:
+      containers:
+        - name: signaling
+          image: {{ .Values.signaling.image }}
+          # The image's native ENTRYPOINT will handle startup automatically.
+          ports:
+            - containerPort: {{ .Values.signaling.port }}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ .Release.Name }}-signaling-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-signaling
+spec:
+  selector:
+    app: signaling
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: {{ .Values.signaling.port }}
