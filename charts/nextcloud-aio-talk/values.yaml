@@ -1,0 +1,42 @@
+# ------------------------------------
+# Global Configurations & Secrets
+# ------------------------------------
+domain: "nextcloud.yourdomain.com"
+janusUrl: "ws://janus.yourdomain.com:8188" # Address of your dedicated Janus VM
+turnDomain: "turn.yourdomain.com"          # Address of your dedicated Coturn VM
+
+secrets:
+  signalingSecret: "YOUR_SIGNALING_SECRET"
+  internalSecret: "YOUR_INTERNAL_SECRET"
+  turnSecret: "YOUR_TURN_SECRET"
+
+# Bitrate limits
+talkMaxStreamBitrate: "1048576"
+talkMaxScreenBitrate: "2097152"
+
+# ------------------------------------
+# Images
+# ------------------------------------
+images:
+  signaling: strukturag/nextcloud-spreed-signaling:2.1.1
+  nats: nats:2.14.2-alpine
+
+# ------------------------------------
+# Ingress (For Signaling Server)
+# ------------------------------------
+ingress:
+  enabled: true
+  className: "nginx" # Change this if you use traefik, haproxy, etc.
+  annotations: {}
+    # Example for cert-manager:
+    # cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    # nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+  hosts:
+    - host: signaling.yourdomain.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+  #  - secretName: signaling-tls
+  #    hosts:
+  #      - signaling.yourdomain.com

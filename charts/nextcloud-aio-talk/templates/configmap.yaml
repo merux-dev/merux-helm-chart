@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-config
+data:
+  nats.conf: |
+    listen: 0.0.0.0:4222
+    write_deadline: "10s"
+    max_payload: 8MB
+  server.conf: |
+    [http]
+    listen = 0.0.0.0:8080
+    [app]
+    debug = false
+    [sessions]
+    hashkey = {{ .Values.secrets.internalSecret }}
+    blockkey = {{ .Values.secrets.internalSecret }}
+    [clients]
+    internalsecret = {{ .Values.secrets.internalSecret }}
+    [backend]
+    backends = backend-1
+    allowall = false
+    timeout = 10
+    connectionsperhost = 8
+    [backend-1]
+    url = https://{{ .Values.domain }}
+    secret = {{ .Values.secrets.signalingSecret }}
+    [nats]
+    url = nats://{{ .Release.Name }}-nats:4222
+    [mcu]
+    type = janus
+    url = {{ .Values.janusUrl }}
+    maxstreambitrate = {{ .Values.talkMaxStreamBitrate }}
+    maxscreenbitrate = {{ .Values.talkMaxScreenBitrate }}
+    [turn]
+    apikey = {{ .Values.secrets.turnSecret }}
+    secret = {{ .Values.secrets.turnSecret }}
+    servers = turn:{{ .Values.turnDomain }}:3478?transport=udp,turn:{{ .Values.turnDomain }}:3478?transport=tcp
