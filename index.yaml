@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   nextcloud-spreed:
   - apiVersion: v2
+    appVersion: v2.1.1
+    created: "2026-06-25T08:46:05.742283145Z"
+    description: A Helm chart for Nextcloud Spreed Signaling (with Janus and NATS)
+    digest: bad5f990936b4cf3e7a503db44563af70c4c240e6eda4a6b8038deb4cf5f0742
+    name: nextcloud-spreed
+    type: application
+    urls:
+    - https://github.com/merux-dev/merux-helm-chart/releases/download/nextcloud-spreed-1.0.1/nextcloud-spreed-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
     appVersion: 1.16.0
     created: "2026-06-15T08:48:10.812857527Z"
     description: A Helm chart for Nextcloud Spreed Signaling (with Janus and NATS)
@@ -11,4 +21,4 @@ entries:
     urls:
     - https://github.com/merux-dev/merux-helm-chart/releases/download/nextcloud-spreed-1.0.0/nextcloud-spreed-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-15T08:48:10.81286486Z"
+generated: "2026-06-25T08:46:05.742302905Z"
