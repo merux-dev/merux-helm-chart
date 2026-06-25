@@ -1,31 +1,42 @@
+{{- if .Values.nats.enabled -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-nats
+  labels:
+    app: {{ .Release.Name }}-nats
 spec:
-  replicas: 1
+  replicas: {{ .Values.nats.replicaCount }}
   selector:
     matchLabels:
-      app: nats
+      app: {{ .Release.Name }}-nats
   template:
     metadata:
       labels:
-        app: nats
+        app: {{ .Release.Name }}-nats
     spec:
       containers:
         - name: nats
-          image: {{ .Values.nats.image }}
+          image: "{{ .Values.nats.image }}"
+          imagePullPolicy: {{ .Values.nats.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.nats.port }}
+            - name: client
+              containerPort: 4222
+              protocol: TCP
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Release.Name }}-nats
+  labels:
+    app: {{ .Release.Name }}-nats
 spec:
-  selector:
-    app: nats
+  type: {{ .Values.nats.service.type }}
   ports:
-    - protocol: TCP
-      port: {{ .Values.nats.port }}
-      targetPort: {{ .Values.nats.port }}
+    - port: {{ .Values.nats.service.port }}
+      targetPort: client
+      protocol: TCP
+      name: client
+  selector:
+    app: {{ .Release.Name }}-nats
+{{- end -}}

@@ -1,26 +1,48 @@
-nats:
-  image: "nats:alpine"
-  port: 4222
-
 janus:
+  enabled: false
   image: "canyan/janus-gateway:latest"
-  ports:
-    ws: 8188
-    http: 8088
-  # WebRTC requires a wide range of UDP ports. In production, you might 
-  # need hostNetwork: true or specific NodePort configurations for Janus.
-  hostNetwork: false 
+  pullPolicy: IfNotPresent
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    wsPort: 8188
+    httpPort: 8088
 
 signaling:
-  image: "strukturag/nextcloud-spreed-signaling:master"
-  port: 8080
-  config:
-    nextcloudUrl: "https://your-nextcloud.com"
-    nextcloudSecret: "your-shared-secret" # Must match Nextcloud Talk admin settings
-    hashKey: "1234567890123456"  # Must be exactly 16, 24, or 32 bytes
-    blockKey: "1234567890123456" # Must be exactly 16, 24, or 32 bytes
-    coturnServer: "turn.example.com"
-    coturnSecret: "your-coturn-secret"
+  enabled: true
+  image: "strukturag/nextcloud-spreed-signaling:d82f7f2"
+  pullPolicy: IfNotPresent
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 8080
+
+  mcu:
+    type: janus
+    url: "janus.example.com"
+  
+  turn:
+    server: "turn.example.com"
+    secret: "your-coturn-secret"
+
+  backend:
+    url: "https://nextcloud.yourdomain.com"
+    secret: "your-nextcloud-shared-secret"
+    
+  sessions:
+    # Hashkey must be 32 or 64 bytes
+    hashkey: "your-session-hash-key-here"
+    # Blockkey must be exactly 16, 24, or 32 bytes
+    blockkey: "your-session-block-key-here"
+
+nats:
+  enabled: true
+  image: "nats:alpine"
+  pullPolicy: IfNotPresent
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 4222
 
 ingress:
   enabled: true

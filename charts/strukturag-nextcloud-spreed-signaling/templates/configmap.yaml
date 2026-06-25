@@ -1,18 +1,17 @@
+{{- if .Values.signaling.enabled -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-signaling-config
+  name: {{ .Release.Name }}-config
+  labels:
+    app: {{ .Release.Name }}-signaling
 data:
   server.conf: |
     [http]
     listen = 0.0.0.0:8080
 
-    [app]
-    debug = true
-
-    [sessions]
-    hashkey = {{ .Values.signaling.config.hashKey }}
-    blockkey = {{ .Values.signaling.config.blockKey }}
+    [appinfo]
+    id = spreed
 
     [backend]
     backends = backend-1
@@ -21,17 +20,23 @@ data:
     connectionsperhost = 8
 
     [backend-1]
-    url = {{ .Values.signaling.config.nextcloudUrl }}
-    secret = {{ .Values.signaling.config.nextcloudSecret }}
+    url = {{ .Values.signaling.backend.url }}
+    secret = {{ .Values.signaling.backend.secret }}
 
-    [nats]
-    url = nats://{{ .Release.Name }}-nats:{{ .Values.nats.port }}
+    [sessions]
+    # Session secrets
+    hashkey = {{ .Values.signaling.sessions.hashkey }}
+    blockkey = {{ .Values.signaling.sessions.blockkey }}
 
     [mcu]
-    type = janus
-    url = ws://{{ .Release.Name }}-janus:{{ .Values.janus.ports.ws }}
+    type = {{ .Values.signaling.mcu.type }}
+    url = ws://{{ .Values.signaling.mcu.url }}
 
     [turn]
-    apikey = {{ .Values.signaling.config.coturnSecret }}
-    secret = {{ .Values.signaling.config.coturnSecret }}
-    servers = turn:{{ .Values.signaling.config.coturnServer }}:3478?transport=udp,turn:{{ .Values.signaling.config.coturnServer }}:3478?transport=tcp
+    apikey = {{ .Values.signaling.turn.secret }}
+    secret = {{ .Values.signaling.turn.secret }}
+    servers = turn:{{ .Values.signaling.turn.server }}:3478?transport=udp,turn:{{ .Values.signaling.turn.server }}:3478?transport=tcp
+
+    [nats]
+    url = nats://{{ .Release.Name }}-nats:4222
+{{- end -}}

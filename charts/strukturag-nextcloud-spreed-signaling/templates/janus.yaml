@@ -1,0 +1,49 @@
+{{- if .Values.janus.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-janus
+  labels:
+    app: {{ .Release.Name }}-janus
+spec:
+  replicas: {{ .Values.janus.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-janus
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-janus
+    spec:
+      containers:
+        - name: janus
+          image: "{{ .Values.janus.image }}"
+          imagePullPolicy: {{ .Values.janus.pullPolicy }}
+          ports:
+            - name: ws
+              containerPort: 8188
+              protocol: TCP
+            - name: http
+              containerPort: 8088
+              protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-janus
+  labels:
+    app: {{ .Release.Name }}-janus
+spec:
+  type: {{ .Values.janus.service.type }}
+  ports:
+    - port: {{ .Values.janus.service.wsPort }}
+      targetPort: ws
+      protocol: TCP
+      name: ws
+    - port: {{ .Values.janus.service.httpPort }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ .Release.Name }}-janus
+{{- end -}}
