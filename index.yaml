@@ -1,5 +1,16 @@
 apiVersion: v1
 entries:
+  nextcloud-aio-talk:
+  - apiVersion: v2
+    appVersion: 2.1.1
+    created: "2026-06-25T12:27:02.082529059Z"
+    description: Nextcloud AIO Talk Signaling Server and NATS
+    digest: 802f4d453f61823d92b28284cb2cde7030717568656e8530b12240bc58b7e91e
+    name: nextcloud-aio-talk
+    type: application
+    urls:
+    - https://github.com/merux-dev/merux-helm-chart/releases/download/nextcloud-aio-talk-1.0.0/nextcloud-aio-talk-1.0.0.tgz
+    version: 1.0.0
   nextcloud-spreed:
   - apiVersion: v2
     appVersion: v2.1.1
@@ -21,4 +32,4 @@ entries:
     urls:
     - https://github.com/merux-dev/merux-helm-chart/releases/download/nextcloud-spreed-1.0.0/nextcloud-spreed-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-25T08:46:05.742302905Z"
+generated: "2026-06-25T12:27:02.082539088Z"
