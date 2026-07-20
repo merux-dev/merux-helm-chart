@@ -1,0 +1,26 @@
+replicaCount: 1
+
+image:
+  repository: clamav/clamav
+  tag: "latest" # Change this to pin to a specific version for production
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 3310    # Configurable port for the Service and Container
+
+env:
+  noFreshclamd: "false" # Ensures virus definitions update automatically
+
+# ClamAV is memory-heavy; do not skip limits
+resources:
+  requests:
+    memory: "1Gi"
+    cpu: "500m"
+  limits:
+    memory: "2Gi"
+    cpu: "1000m"
+
+# Optional overrides for standard naming
+nameOverride: ""
+fullnameOverride: ""
