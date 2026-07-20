@@ -1,5 +1,16 @@
 apiVersion: v1
 entries:
+  clamav:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2026-07-20T13:44:13.470411315Z"
+    description: A Helm chart for ClamAV
+    digest: 0c91ae71692b804f15757c6243c602dfb8cd554835da66c022e840d400517eb7
+    name: clamav
+    type: application
+    urls:
+    - https://github.com/merux-dev/merux-helm-chart/releases/download/clamav-1.0.0/clamav-1.0.0.tgz
+    version: 1.0.0
   nextcloud-aio-talk:
   - apiVersion: v2
     appVersion: 2.1.1
@@ -32,4 +43,4 @@ entries:
     urls:
     - https://github.com/merux-dev/merux-helm-chart/releases/download/nextcloud-spreed-1.0.0/nextcloud-spreed-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-25T12:27:02.082539088Z"
+generated: "2026-07-20T13:44:13.470420743Z"
